@@ -24,7 +24,10 @@ export function createOAuthLoginUrl({
   redirectUri,
   state,
 }: OAuthLoginUrlInput) {
-  const portal = (oauthPortalUrl.trim() || DEFAULT_OAUTH_PORTAL_URL).replace(/\/$/, "");
+  const portal = (oauthPortalUrl.trim() || DEFAULT_OAUTH_PORTAL_URL).replace(
+    /\/$/,
+    ""
+  );
   const url = new URL(`${portal}/app-auth`);
   url.searchParams.set("appId", appId.trim() || DEFAULT_OAUTH_APP_ID);
   url.searchParams.set("redirectUri", redirectUri);
@@ -36,7 +39,8 @@ export function createOAuthLoginUrl({
 // Start the Manus OAuth login. Call this from an event handler or effect at the
 // moment you want to navigate, e.g. onClick={() => startLogin()}.
 export const startLogin = () => {
-  const oauthPortalUrl = import.meta.env.VITE_OAUTH_PORTAL_URL || DEFAULT_OAUTH_PORTAL_URL;
+  const oauthPortalUrl =
+    import.meta.env.VITE_OAUTH_PORTAL_URL || DEFAULT_OAUTH_PORTAL_URL;
   const appId = import.meta.env.VITE_APP_ID || DEFAULT_OAUTH_APP_ID;
   const redirectUri = `${window.location.origin}/api/oauth/callback`;
 

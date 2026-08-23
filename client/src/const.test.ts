@@ -18,7 +18,7 @@ describe("createOAuthLoginUrl", () => {
     expect(url.pathname).toBe("/app-auth");
     expect(url.searchParams.get("appId")).toBe(DEFAULT_OAUTH_APP_ID);
     expect(url.searchParams.get("redirectUri")).toBe(
-      "https://teatcher2.netlify.app/api/oauth/callback",
+      "https://teatcher2.netlify.app/api/oauth/callback"
     );
     expect(url.searchParams.get("state")).toBe("nonce-state");
     expect(url.searchParams.get("type")).toBe("signIn");
