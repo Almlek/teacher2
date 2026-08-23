@@ -73,14 +73,14 @@ git --version
 المستودع الحالي هو:
 
 ```text
-https://github.com/Almlek/teacher
+https://github.com/Almlek/teacher2
 ```
 
 لنسخ المشروع:
 
 ```bash
-git clone https://github.com/Almlek/teacher.git
-cd teacher
+git clone https://github.com/Almlek/teacher2.git
+cd teacher2
 ```
 
 إذا كان المستودع خاصاً، استخدم مصادقة GitHub المناسبة. لا تضع رمز GitHub أو أي مفتاح وصول داخل الأوامر المحفوظة أو الملفات البرمجية.
@@ -336,6 +336,22 @@ NODE_ENV=production pnpm start
 | Health URL      | `/` أو مسار فحص الصحة الذي توفره المنصة        |
 
 طبّق الهجرات مرة واحدة في مرحلة نشر مضبوطة، وليس عند كل تشغيل لعملية الخادم إذا كانت المنصة تنشئ نسخاً متعددة. تأكد من استخدام HTTPS، وضبط نطاق OAuth، والسماح باتصالات قاعدة البيانات من عنوان الاستضافة، وتفعيل SSL لقاعدة البيانات حيثما كان متاحاً.
+
+## النشر على Netlify
+
+يمكن نشر واجهة الموقع من مستودع `teacher2` باستخدام إعداد `netlify.toml` المرفق. استخدم الإعدادات التالية إذا احتجت إلى إدخالها يدوياً:
+
+| الحقل | القيمة |
+| --- | --- |
+| Base directory | فارغ |
+| Build command | `pnpm build` |
+| Publish directory | `dist/public` |
+| Functions directory | فارغ |
+| Branch | `main` |
+
+يعيد ملف `netlify.toml` توجيه طلبات `/api/*` إلى خادم Manus المنشور، ويعيد توجيه بقية المسارات إلى `index.html` حتى تعمل مسارات Wouter المباشرة مثل `/lessons/new` و`/settings`. يجب ضبط قيم `VITE_APP_ID` و`VITE_OAUTH_PORTAL_URL` في Netlify قبل البناء إذا كانت مختلفة عن القيم الافتراضية، كما يجب التأكد من قبول نطاق Netlify في إعداد OAuth.
+
+> نشر الواجهة على Netlify لا ينقل Express أو قاعدة البيانات أو خدمات الذكاء الاصطناعي؛ يبقى الخادم المشار إليه في `netlify.toml` مسؤولاً عن API والبيانات.
 
 ## النشر عبر GitHub Actions
 

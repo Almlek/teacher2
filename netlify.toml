@@ -1,0 +1,16 @@
+[build]
+  command = "pnpm build"
+  publish = "dist/public"
+
+# Keep the existing Express/tRPC backend on Manus while Netlify serves the UI.
+[[redirects]]
+  from = "/api/*"
+  to = "https://smartplan-ppvujobi.manus.space/api/:splat"
+  status = 200
+  force = true
+
+# Let Wouter handle client-side routes such as /lessons/new and /settings.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
